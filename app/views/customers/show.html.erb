@@ -1,0 +1,31 @@
+  <!--ユーザー画像-->
+    <p><%= image_tag @customer.get_icon_image(100, 100) %></p>
+    <p><%= @customer.user_name %></p>
+
+    <p>フォロー数: <%= @customer.followings.count %></p>
+    <p>フォロワー数: <%= @customer.followers.count %></p>
+    <p><% if current_customer != @customer %>
+         <% if current_customer.following?(@customer) %>
+          <%= link_to "フォロー外す", relations_path(id: Relation.find_by(follower: current_customer, followed: @customer).id, customer_id: @customer.id), method: :delete %>
+         <% else %>
+          <%= link_to "フォローする", relations_path(customer_id: @customer.id), method: :post %>
+         <% end %>
+        <% end %>
+    </p>
+
+    <div>
+      <% if current_customer.id == @customer.id %>
+      <p><%= link_to "プロフィール編集", edit_customer_path(current_customer) %></p>
+      <% end %>
+    </div>
+
+      <!--投稿ユーザー画像-->
+      <% @trips.each do |trip| %>
+      <%= link_to trip_path(trip.id) do %>
+      <%= image_tag trip.image %>
+      <% end %>
+      <!--説明-->
+      <p><%= trip.description %></p>
+      <% end %>
+
+    </div>

@@ -6,11 +6,81 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/1e4ec112eb.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
+    <header class="shadow-sm">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <a class="navbar-brand p-3 text-dark" href="/">Travel</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+
+            <% if customer_signed_in? %>
+            <li class="nav-item">
+              <%= link_to customer_path(current_customer) do %>
+              <p class="btn btn outline-light btn-block">
+              <i class="fa-regular fa-user"></i>
+              <% end %>
+            </li>
+
+            <li class="nav-item">
+              <%= link_to trips_path do %>
+              <p class="btn btn outline-light btn-block">
+              <i class="fa-solid fa-house"></i>
+              <% end %>
+
+            <li class="nav-item">
+              <%= link_to new_trip_path do %>
+              <p class="btn btn outline-light btn-block">
+              <i class="fa-regular fa-pen-to-square"></i>
+              <% end %>
+
+            <li class="nav-item">
+              <%= link_to destroy_customer_session_path, method: :delete do %>
+              <p class="btn btn outline-light btn-block">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i>
+              <% end %>
+
+
+
+          <% elsif admin_signed_in? %>
+            <li class="nav-item">
+              <%= link_to "All items", admin_items_path, class: "nav-link text-dark" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Customers", admin_customers_path, class: "nav-link text-dark" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Orders", admin_path, class: "nav-link text-dark" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Genres", admin_genres_path, class: "nav-link text-dark" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Logout", destroy_admin_session_path, class: "nav-link text-dark" , method: :delete %>
+            </li>
+
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "Sign up", new_customer_registration_path, class: "nav-link text-dark" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Login", new_customer_session_path, class: "nav-link text-dark" %>
+            </li>
+          <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main class="p-5">
     <%= yield %>
   </body>
 </html>

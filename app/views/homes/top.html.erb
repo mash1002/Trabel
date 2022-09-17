@@ -1,2 +1,28 @@
-<h1>Homes#top</h1>
-<p>Find me in app/views/homes/top.html.erb</p>
+<div class="container">
+
+    <div class="row">
+      <div class="col-md-12">
+        <%= image_tag "airport-2373727_1920.jpg", size: "300x300" %>
+        <%= image_tag "burano-2420762_1920.jpg", size: "300x300" %>
+        <%= image_tag "beach-6025997_1920.jpg", size: "300x300" %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-10 text-center">
+        <h4>Travelの世界へ、ようこそ</h4>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <%= image_tag "hot-air-balloons-1867279_1920.jpg", size: "300x300" %>
+        <%= image_tag "village-7258991_1920.jpg", size: "300x300" %>
+        <%= image_tag "big-ben-7116305_1920.jpg", size: "300x300" %>
+      </div>
+    </div>
+
+    <%= link_to 'ログイン', new_customer_registration_path %><br>
+    <%= link_to 'ゲストログイン（閲覧用）', customers_guest_sign_in_path, method: :post %>
+
+</div>

@@ -1,0 +1,8 @@
+<%= form_with model: @trip, url:trips_path, method: :post do |f| %>
+ 
+  <%= f.file_field :image %>
+  <%= f.text_area :description %>
+  <%= f.text_field :address %>
+  <%= f.submit '投稿' %>
+
+<% end %>

@@ -1,0 +1,9 @@
+  <%= form_with model: @comment, url:trip_comments_path(@trip), method: :post do |f| %>
+  <%= f.text_area :comment_text %>
+  <%= f.submit '投稿' %>
+  <% end %>
+
+
+  <% @comments.each do |comment| %>
+    <%= comment.comment_text %>
+  <% end %>

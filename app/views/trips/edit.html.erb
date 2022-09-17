@@ -1,2 +1,9 @@
-<h1>Trips#edit</h1>
-<p>Find me in app/views/trips/edit.html.erb</p>
+<h4>編集画面</h4>
+
+<%= form_with model: @trip do |f| %>
+  <%= f.file_field :image %>
+  <%= f.text_area :description %>
+
+  <%= f.submit '保存' %>
+
+<% end %>

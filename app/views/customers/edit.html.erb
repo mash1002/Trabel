@@ -1,2 +1,21 @@
-<h1>Customers#edit</h1>
-<p>Find me in app/views/customers/edit.html.erb</p>
+  <div class='container'>
+    <div class='row'>
+      <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+        
+      <%= form_with model: @customer,url: customers_path(@customer.id), method: :patch do |f| %>
+      
+      <h5>プロフィール画像変更</h5>
+      <%= f.file_field :icon_image, accept: "image/*" %>
+      
+      <h5>ユーザー名</h5>
+      <%= f.text_field :user_name %>
+
+      <h5>自己紹介</h5>
+      <%= f.text_area :self_introdaction %>
+      
+      <%= f.submit '完了' %>
+      
+      <% end %>
+      </div>
+    </div>
+  </>

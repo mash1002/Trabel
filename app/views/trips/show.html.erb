@@ -1,0 +1,62 @@
+<div>
+  <p><%= image_tag @trip.customer.get_icon_image(100,100) %></p>
+  <p><%= @trip.customer.user_name %></p>
+  <%= image_tag @trip.image %>
+  <p><%= @trip.description %></p>
+  <p><%= @trip.created_at.strftime('%Y/%m/%d') %></p>
+
+  <% if @trip.customer == current_customer %>
+    <%= link_to "削除", trips_path(@trip), method: :delete %>
+  <% end %>
+</div>
+
+<div>
+  <p>コメント件数：<%= @trip.comments.count %></p>
+  <% @trip.comments.each do |comment| %>
+    <p><%= image_tag comment.customer.get_icon_image(100,100) %></p>
+    <%= comment.customer.user_name %>
+    <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment_text %>
+    <% if comment.customer == current_customer %>
+      <%= link_to "削除", trip_comment_path(comment.trip, comment), method: :delete %>
+    <% end %>
+  <% end %>
+</div>
+<div>
+  <%= form_with model: [@trip, @comment] do |f| %>
+    <%= f.text_area :comment_text, rows: '5', placeholder: "コメントをここに" %>
+    <%= f.submit "送信する" %>
+  <% end %>
+</div>
+
+<div class="map">
+  <div id="map">
+  </div>
+</div>
+
+
+  <script>
+    function initMap(){
+      let map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: <%= @trip.latitude %>, lng: <%= @trip.longitude %> },
+      zoom: 15
+      });
+      var test = {lat: <%= @trip.latitude %>, lng: <%= @trip.longitude %> };
+      var marker = new google.maps.Marker({
+                     position: test,
+                     map: map
+
+                   });
+
+
+
+
+    }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLEMAP'] %>&callback=initMap" async defer></script>
+
+<style>
+ #map {
+  height: 300px;
+  width: 400px;
+}
+</style>
