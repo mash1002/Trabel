@@ -7,7 +7,7 @@ class TripsController < ApplicationController
   def new
     @trip = Trip.new
   end
-  
+
   def show
     @trip = Trip.find(params[:id])
     @comment = Comment.new
@@ -25,17 +25,22 @@ class TripsController < ApplicationController
 
   def update
     @trip = Trip.find(params[:id])
+    if params[:trip][:image_destroy_flg] == "1"
+      @trip.image.purge
+    end
 
-      if @trip.update(trip_params)
+    if @trip.update(trip_params)
       flash[:notice] = "変更しました"
-      redirect_to trips_path
-
-      else
+      redirect_to trip_path(@trip)
+    else
       render :index
-      end
+    end
   end
 
   def destroy
+    @trip = Trip.find(params[:id])
+    @trip.destroy
+    redirect_to trips_path
   end
 
   def search

@@ -1,12 +1,15 @@
 <div>
   <p><%= image_tag @trip.customer.get_icon_image(100,100) %></p>
   <p><%= @trip.customer.user_name %></p>
-  <%= image_tag @trip.image %>
+  <% if @trip.image.attached? %>
+    <%= image_tag @trip.image %>
+  <% end %>
   <p><%= @trip.description %></p>
   <p><%= @trip.created_at.strftime('%Y/%m/%d') %></p>
 
   <% if @trip.customer == current_customer %>
-    <%= link_to "削除", trips_path(@trip), method: :delete %>
+    <%= link_to "削除", trip_path(@trip), method: :delete %>
+    <%= link_to "編集", edit_trip_path(@trip.id) %>
   <% end %>
 </div>
 

@@ -13,6 +13,12 @@ class CustomersController < ApplicationController
     @customer = Customer.find(params[:id])
   end
 
+  def favorites
+    @customer = Customer.find(params[:id])
+    @trips = @customer.favorite_trips
+
+  end
+
   def search
     @model = params[:model]
 		@content = params[:content]
@@ -31,16 +37,19 @@ class CustomersController < ApplicationController
   def update
      @customer = Customer.find(params[:id])
 
-      if @customer.update(customers_params)
+    if @customer.update(customers_params)
       flash[:notice] = "更新完了しました"
-      redirect_to customers_path(@customer.id)
+      redirect_to customer_path(@customer.id)
 
-      else
-      render :index
-      end
+    else
+      render :show
+    end
   end
 
   def destroy
+    trip = Trip.find(params[:id])
+    trip.destroy
+    redirect_to customer_path
   end
 
   private

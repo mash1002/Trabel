@@ -23,58 +23,84 @@
             <ul class="navbar-nav ml-auto">
 
             <% if customer_signed_in? %>
-            <li class="nav-item">
-              <%= link_to customer_path(current_customer) do %>
-              <p class="btn btn outline-light btn-block">
-              <i class="fa-regular fa-user"></i>
-              <% end %>
-            </li>
+              <li class="nav-item">
+                <%= form_with scope: :trip, url: trips_path, method: :get do |f| %>
+                <%= f.text_field :address %>
+                <%= f.submit '検索', class: "btn btn-sm btn-outline-success mx-1" %>
+                <% end %>
+              </li>
 
-            <li class="nav-item">
-              <%= link_to trips_path do %>
-              <p class="btn btn outline-light btn-block">
-              <i class="fa-solid fa-house"></i>
-              <% end %>
 
-            <li class="nav-item">
-              <%= link_to new_trip_path do %>
-              <p class="btn btn outline-light btn-block">
-              <i class="fa-regular fa-pen-to-square"></i>
+              <% if !current_page?(customer_path(current_customer)) %>
+              <li class="nav-item">
+                <%= link_to customer_path(current_customer) do %>
+                  <p class="btn btn outline-light btn-block">
+                  <i class="fa-regular fa-user"></i>
+                <% end %>
+              </li>
               <% end %>
 
-            <li class="nav-item">
-              <%= link_to destroy_customer_session_path, method: :delete do %>
-              <p class="btn btn outline-light btn-block">
-              <i class="fa-solid fa-arrow-right-from-bracket"></i>
+              <li class="nav-item">
+                <%= link_to favorites_customer_path(current_customer) do %>
+                  <p class="btn btn outline-light btn-block">
+                  <i class="fa-regular fa-heart"></i>
+                <% end %>
+              </li>
+
+              <li class="nav-item">
+                <%= link_to edit_customer_path(current_customer) do %>
+                  <p class="btn btn outline-light btn-block">
+                  <i class="fa-regular fa-address-card"></i>
+                <% end %>
+              </li>
+
+              <% if !current_page?(trips_path) %>
+              <li class="nav-item">
+                <%= link_to trips_path do %>
+                  <p class="btn btn outline-light btn-block">
+                  <i class="fa-solid fa-house"></i>
+                <% end %>
+              </li>
               <% end %>
 
+              <li class="nav-item">
+                <%= link_to new_trip_path do %>
+                  <p class="btn btn outline-light btn-block">
+                  <i class="fa-regular fa-pen-to-square"></i>
+                <% end %>
+              </li>
 
+              <li class="nav-item">
+                <%= link_to destroy_customer_session_path, method: :delete do %>
+                  <p class="btn btn outline-light btn-block">
+                  <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <% end %>
+              </li>
 
           <% elsif admin_signed_in? %>
-            <li class="nav-item">
-              <%= link_to "All items", admin_items_path, class: "nav-link text-dark" %>
-            </li>
+
             <li class="nav-item">
               <%= link_to "Customers", admin_customers_path, class: "nav-link text-dark" %>
+
             </li>
-            <li class="nav-item">
-              <%= link_to "Orders", admin_path, class: "nav-link text-dark" %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Genres", admin_genres_path, class: "nav-link text-dark" %>
-            </li>
+
             <li class="nav-item">
               <%= link_to "Logout", destroy_admin_session_path, class: "nav-link text-dark" , method: :delete %>
+
             </li>
+
 
           <% else %>
             <li class="nav-item">
               <%= link_to "Sign up", new_customer_registration_path, class: "nav-link text-dark" %>
+
             </li>
+
             <li class="nav-item">
               <%= link_to "Login", new_customer_session_path, class: "nav-link text-dark" %>
             </li>
           <% end %>
+
             </ul>
           </div>
         </div>

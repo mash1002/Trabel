@@ -1,6 +1,11 @@
 <h4>編集画面</h4>
 
 <%= form_with model: @trip do |f| %>
+  <% if @trip.image.attached? %>
+    <%= image_tag @trip.image %>
+    <%= f.check_box :image_destroy_flg %>
+    <%= f.label '画像を削除する' %>
+  <% end %>
   <%= f.file_field :image %>
   <%= f.text_area :description %>
 

@@ -7,6 +7,7 @@ class Customer < ApplicationRecord
   has_many :trips, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :favorite_trips, through: :favorites, source: :trip
   has_one_attached :icon_image
 
   has_many :reverse_of_relations, class_name: "Relation", foreign_key: "followed_id", dependent: :destroy
