@@ -80,12 +80,12 @@
           <% elsif admin_signed_in? %>
 
             <li class="nav-item">
-              <%= link_to "Customers", admin_customers_path, class: "nav-link text-dark" %>
+              <%= link_to "Customers", admins_path, class: "nav-link text-dark" %>
 
             </li>
 
             <li class="nav-item">
-              <%= link_to "Logout", destroy_admin_session_path, class: "nav-link text-dark" , method: :delete %>
+              <%= link_to "Log out", destroy_admin_session_path, class: "nav-link text-dark" , method: :delete %>
 
             </li>
 

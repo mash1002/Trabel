@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :admins
-  # devise_for :customer, controllers: {
-  #   registrations: 'customer/registrations',
-  #   passwords: 'customer/passwords'
-  # }
+  devise_for :admins, controllers: {
+    registrations: 'admins/registrations',
+    sessions: 'admins/sessions',
+  }
   devise_for :customers
 
   devise_scope :customer do
@@ -23,7 +22,7 @@ Rails.application.routes.draw do
     collection do
       get 'search'
     end
-    
+
     member do
       get :favorites
     end
