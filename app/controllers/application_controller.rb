@@ -10,6 +10,12 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    trips_path
+    if customer_signed_in?
+      trips_path
+    elsif admin_signed_in?
+      admins_customers_path
+    else
+      root_path
+    end
   end
 end

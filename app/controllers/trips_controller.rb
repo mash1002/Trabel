@@ -1,6 +1,6 @@
 class TripsController < ApplicationController
   def index
-    @trips = Trip.all
+    @trips = Trip.all.order(created_at:"desc")
     @trips = @trips.where("address LIKE ?", "%#{params[:trip][:address]}%") if params[:trip] && params[:trip][:address].present?
   end
 

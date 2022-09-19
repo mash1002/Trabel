@@ -3,12 +3,20 @@ Rails.application.routes.draw do
     registrations: 'admins/registrations',
     sessions: 'admins/sessions',
   }
-  devise_for :customers
+  devise_for :customers, controllers:{
+    sessions: 'customers/sessions'
+  }
 
   devise_scope :customer do
-    post 'customers/guest_sign_in', to: 'customer/sessions#guest_sign_in'
+    post 'customers/guest_sign_in', to: 'customers/sessions#guest_sign_in'
+
   end
+
   root "homes#top"
+
+  namespace :admins do
+    resources :customers, only: [:show, :index, :edit, :search, :create, :update, :destroy]
+  end
 
   get "/", to: "homes#top"
   post '/customers/guest_sign_in', to: 'customers#guest_sign_in'
