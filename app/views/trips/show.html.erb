@@ -1,37 +1,41 @@
-<div>
-  <%= link_to customer_path(@trip.customer) do %>
-    <p><%= image_tag @trip.customer.get_icon_image(100,100) %></p>
-    <p><%= @trip.customer.user_name %></p>
-  <% end %>
-
-  <% if @trip.image.attached? %>
-    <%= image_tag @trip.image %>
-  <% end %>
-  <p><%= @trip.description %></p>
-  <p><%= @trip.created_at.strftime('%Y/%m/%d') %></p>
-
-  <% if @trip.customer == current_customer %>
-    <%= link_to "削除", trip_path(@trip), method: :delete %>
-    <%= link_to "編集", edit_trip_path(@trip.id) %>
-  <% end %>
-</div>
-
-<div>
-  <p>コメント件数：<%= @trip.comments.count %></p>
-  <% @trip.comments.each do |comment| %>
-    <p><%= image_tag comment.customer.get_icon_image(100,100) %></p>
-    <%= comment.customer.user_name %>
-    <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment_text %>
-    <% if comment.customer == current_customer %>
-      <%= link_to "削除", trip_comment_path(comment.trip, comment), method: :delete %>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-4 mb-4">
+    <%= link_to customer_path(@trip.customer) do %>
+      <p><%= image_tag @trip.customer.get_icon_image(100,100) %></p>
+      <p><%= @trip.customer.user_name %></p>
     <% end %>
-  <% end %>
-</div>
-<div>
-  <%= form_with model: [@trip, @comment] do |f| %>
-    <%= f.text_area :comment_text, rows: '5', placeholder: "コメント" %>
-    <%= f.submit "送信する" %>
-  <% end %>
+
+    <% if @trip.image.attached? %>
+      <%= image_tag @trip.image, class: "w-100 card-img-size" %>
+    <% end %>
+    <p><%= @trip.description %></p>
+    <p><%= @trip.created_at.strftime('%Y/%m/%d') %></p>
+
+    <% if @trip.customer == current_customer %>
+      <%= link_to "削除", trip_path(@trip), method: :delete %>
+      <%= link_to "編集", edit_trip_path(@trip.id) %>
+    <% end %>
+
+    <div>
+      <p>コメント件数：<%= @trip.comments.count %></p>
+      <% @trip.comments.each do |comment| %>
+        <p><%= image_tag comment.customer.get_icon_image(100,100) %></p>
+        <%= comment.customer.user_name %>
+        <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment_text %>
+        <% if comment.customer == current_customer %>
+          <%= link_to "削除", trip_comment_path(comment.trip, comment), method: :delete %>
+        <% end %>
+      <% end %>
+    </div>
+      <div>
+        <%= form_with model: [@trip, @comment] do |f| %>
+          <%= f.text_area :comment_text, rows: '5', placeholder: "コメント" %>
+          <%= f.submit "送信する" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="map">
