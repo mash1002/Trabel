@@ -1,4 +1,4 @@
-class Customer::PasswordsController < Devise::PasswordsController
+class Customers::PasswordsController < Devise::PasswordsController
   before_action :ensure_normal_customer, only: :create
 
   def ensure_normal_user
